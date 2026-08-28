@@ -1,0 +1,7 @@
+# Suffix-aware exceptions for blocklists/anti-bypass.txt.
+# A root here excludes the root and every subdomain below it.
+# NordVPN is intentionally allowed for this household.
+nordaccount.com
+nordauth.com
+nordvpn.com
+nordvpn.org
