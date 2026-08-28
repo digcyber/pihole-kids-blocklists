@@ -1,6 +1,6 @@
 # Data licensing and attribution
 
-The MIT `LICENSE` applies to this repository's software, workflow and documentation code. It does **not** replace the licences that apply to source data or the generated blocklist.
+The MIT `LICENSE` applies to this repository's software, workflow and documentation code. It does **not** replace the licences that apply to source data or generated blocklists.
 
 ## Curlie
 
@@ -16,13 +16,20 @@ Sources:
 
 ## UT1 / Université Toulouse Capitole blacklist
 
-The UT1 blacklist data distributed by Université Toulouse Capitole is licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**. This project uses only the official `shopping` category archive and preserves its provenance rather than importing another derived shopping blocklist.
+The UT1 blacklist data distributed by Université Toulouse Capitole is licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**.
+
+This project uses these official UT1 categories:
+
+- `shopping` for `blocklists/shopping.txt`
+- `social_networks`, `dating`, and `chat` for `blocklists/social-media.txt`
+- `doh`, `vpn`, `residential-proxies`, and `redirector` for `blocklists/anti-bypass.txt`
+
+The project downloads UT1's category archives directly, normalizes their domain/URL records to valid Pi-hole hostnames, and preserves generated source snapshots under `sources/`. It does not import another derived Pi-hole blocklist.
 
 Attribution: **Université Toulouse Capitole / blacklist UT1**.
 
 Sources:
 - https://dsi.ut-capitole.fr/blacklists/index_en.php
-- https://dsi.ut-capitole.fr/blacklists/download/shopping.tar.gz
 - https://dsi.ut-capitole.fr/blacklists/download/LICENSE.pdf
 - https://creativecommons.org/licenses/by-sa/4.0/
 
@@ -38,6 +45,8 @@ Sources:
 
 To the extent the project owner has copyright or database rights in the manual factual domain entries and in the project's own selection/arrangement, those rights are dedicated under **CC0 1.0**.
 
-Because the generated `blocklists/shopping.txt` incorporates and adapts data from the UT1 shopping category, the combined generated blocklist is distributed under **CC BY-SA 4.0** to satisfy UT1's ShareAlike requirement. This does not remove Curlie's separate CC BY 3.0 attribution requirement; Curlie attribution must still be retained. Wikidata-derived material remains CC0.
+Because the generated `blocklists/shopping.txt`, `blocklists/social-media.txt`, and `blocklists/anti-bypass.txt` incorporate and adapt UT1 data, those generated datasets are distributed under **CC BY-SA 4.0** to satisfy UT1's ShareAlike requirement.
 
-Accordingly, redistributors of the generated shopping list should preserve this file or otherwise provide the Curlie and UT1 attribution and the applicable CC BY-SA 4.0 notice.
+For `blocklists/shopping.txt`, this does not remove Curlie's separate CC BY 3.0 attribution requirement; Curlie attribution must still be retained. Wikidata-derived material remains CC0.
+
+Redistributors of generated lists should preserve this file or otherwise provide the required source attribution and applicable CC BY-SA 4.0 notice.
