@@ -10,6 +10,7 @@ from scripts.build_blocklist import (
     normalize_hostname,
     parse_curlie_archive,
     parse_domain_lines,
+    parse_ut1_archive,
     validate_domains,
 )
 
@@ -76,6 +77,34 @@ class CurlieParserTests(unittest.TestCase):
             domains, matches = parse_curlie_archive(archive, roots=("Shopping",))
             self.assertEqual(domains, {"www.shop.example", "books.example"})
             self.assertEqual(matches["Shopping"], 2)
+
+
+class UT1ParserTests(unittest.TestCase):
+    def test_parses_domains_and_urls(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp) / "shopping.tar.gz"
+            domain_data = b"shop.example\nWWW.STORE.EXAMPLE\n"
+            url_data = b"merchant.example/catalog/item\nhttps://offers.example/deal?q=1\n"
+            with tarfile.open(archive, "w:gz") as tf:
+                for name, payload in (("shopping/domains", domain_data), ("shopping/urls", url_data)):
+                    info = tarfile.TarInfo(name)
+                    info.size = len(payload)
+                    tf.addfile(info, io.BytesIO(payload))
+            self.assertEqual(
+                parse_ut1_archive(archive),
+                {"shop.example", "www.store.example", "merchant.example", "offers.example"},
+            )
+
+    def test_requires_both_expected_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp) / "shopping.tar.gz"
+            payload = b"shop.example\n"
+            with tarfile.open(archive, "w:gz") as tf:
+                info = tarfile.TarInfo("shopping/domains")
+                info.size = len(payload)
+                tf.addfile(info, io.BytesIO(payload))
+            with self.assertRaises(BuildError):
+                parse_ut1_archive(archive)
 
 
 if __name__ == "__main__":
