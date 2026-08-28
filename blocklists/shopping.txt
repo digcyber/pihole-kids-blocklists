@@ -6683,7 +6683,6 @@ stoma.abc24.pl
 stonebridge.bizland.com
 stonecreekltd.com
 stonegallery.co.uk
-stonies.co
 stony-hill-madison.com
 stonz.com
 stop2shop.com
@@ -55969,6 +55968,7 @@ www.verduci.it
 www.vereins-shop.ch
 www.vereinsbedarf-sack.de
 www.vereinstextilien.de
+www.verf.nl
 www.verfshop.nl
 www.verfspuit.net
 www.vergelijkprepaid.nl

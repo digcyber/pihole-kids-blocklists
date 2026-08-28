@@ -462,7 +462,6 @@ spwn.jp
 stems.luxury
 stockx.com
 stolzmonat.net
-stonies.co
 store.epicgames.com
 store.google.com
 store.hanashi.media
@@ -1148,6 +1147,7 @@ www.veanveu.com
 www.vecteezy.com
 www.veloragoods.com
 www.vento-star.de
+www.verf.nl
 www.verlagambirnbach.de
 www.verschil.be
 www.vidaxl.de
