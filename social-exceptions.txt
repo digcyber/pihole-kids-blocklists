@@ -1,0 +1,7 @@
+# Suffix-aware exceptions for the generated social-media list.
+# A root here excludes the root and all of its subdomains.
+# Kept intentionally small: household policy leaves YouTube and WhatsApp available.
+whatsapp.com
+whatsapp.net
+youtu.be
+youtube.com
