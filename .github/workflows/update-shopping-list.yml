@@ -65,6 +65,7 @@ jobs:
           set -euo pipefail
           out="${{ steps.build.outputs.out }}"
           install -m 0644 "$out/curlie.txt" sources/curlie.txt
+          install -m 0644 "$out/ut1.txt" sources/ut1.txt
           install -m 0644 "$out/wikidata.txt" sources/wikidata.txt
           install -m 0644 "$out/shopping.txt" blocklists/shopping.txt
 
@@ -72,12 +73,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- sources/curlie.txt sources/wikidata.txt blocklists/shopping.txt; then
+          if git diff --quiet -- sources/curlie.txt sources/ut1.txt sources/wikidata.txt blocklists/shopping.txt; then
             echo "No generated changes to commit." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sources/curlie.txt sources/wikidata.txt blocklists/shopping.txt
+          git add sources/curlie.txt sources/ut1.txt sources/wikidata.txt blocklists/shopping.txt
           git commit -m "Update shopping blocklist"
           git push
