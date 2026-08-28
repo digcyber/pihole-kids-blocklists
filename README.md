@@ -24,6 +24,26 @@ https://raw.githubusercontent.com/digcyber/pihole-kids-blocklists/main/blocklist
 
 Each file contains one validated hostname per line, with no comments or hosts-file IP prefixes.
 
+## Shared exceptions
+
+All generated blocklists use the single authoritative `exceptions.txt` file.
+
+Each rule must explicitly choose one matching mode:
+
+```text
+exact:host.example
+suffix:example.com
+```
+
+- `exact:` removes only that hostname.
+- `suffix:` removes the root hostname and every subdomain below it.
+
+This distinction is intentional. For example, `exact:google.com` does not allow `dns.google.com`, while `suffix:nordvpn.com` protects NordVPN service subdomains as well as the root domain.
+
+The shared file currently protects critical GitHub, Google Workspace and Microsoft 365 hostnames, keeps YouTube and WhatsApp available, and permits NordVPN. `sites.google.com` and `groups.google.com` are also protected because the broad UT1 redirector category can classify them as circumvention-related services.
+
+Exceptions are applied only to the generated GitHub lists in this repository. They do not override other independent Pi-hole adlists such as StevenBlack; use Pi-hole's own allowlist if an external list blocks something you need.
+
 ## Social-media policy
 
 `blocklists/social-media.txt` is generated from:
@@ -33,11 +53,9 @@ Each file contains one validated hostname per line, with no comments or hosts-fi
 - UT1 `dating`;
 - UT1 `chat`.
 
-The generated UT1 material is normalized, merged with the manual domains, deduplicated, sorted, and then filtered through `social-exceptions.txt`.
+The generated UT1 material is normalized, merged with the manual domains, deduplicated, sorted, and filtered through the shared `exceptions.txt` file.
 
-Social exceptions are **suffix-aware**: adding `example.com` excludes `example.com` and all subdomains such as `www.example.com`. This differs intentionally from the exact-only shopping exceptions. YouTube and WhatsApp are intentionally left available through the social exception roots.
-
-The manual starter currently covers selected first-party domains for Facebook/Instagram/Messenger, TikTok, Snapchat, Discord, X/Twitter, Reddit, Twitch, Threads, Wizz, Kik, Yubo, Lemon8, Bluesky, Kick and BIGO Live.
+The manual starter covers selected first-party domains for Facebook/Instagram/Messenger, TikTok, Snapchat, Discord, X/Twitter, Reddit, Twitch, Threads, Wizz, Kik, Yubo, Lemon8, Bluesky, Kick and BIGO Live.
 
 ## Anti-bypass policy
 
@@ -48,30 +66,22 @@ The manual starter currently covers selected first-party domains for Facebook/In
 - `residential-proxies` — residential proxy services;
 - `redirector` — sites categorized by UT1 as redirect/avoidance services.
 
-`anti-bypass-exceptions.txt` is also **suffix-aware**. NordVPN is deliberately permitted with roots for `nordvpn.com`, `nordvpn.org`, `nordauth.com`, and `nordaccount.com`, so matching service subdomains are removed from the final anti-bypass list.
+The shared exception file permits NordVPN using suffix rules for `nordvpn.com`, `nordvpn.org`, `nordauth.com`, and `nordaccount.com`.
 
-The `redirector` category is broad and is the most likely anti-bypass source to produce false positives. Review Pi-hole activity locally and add narrowly scoped exception roots when a legitimate service is affected.
+The `redirector` category is broad and is the most likely anti-bypass source to produce false positives. Review Pi-hole activity locally and add narrowly scoped `exact:` exceptions when a legitimate individual hostname is affected. Use `suffix:` only when you intentionally want to protect an entire domain tree.
 
 Blocking VPN/DoH provider domains is a friction/control measure, not a complete bypass-prevention mechanism. Already configured VPNs, alternate resolvers, mobile data, or other tunnels may still bypass DNS-only policy unless controlled separately.
 
 ## Shopping pipeline
 
-The shopping builder merges four source sets and then applies exact exceptions:
+The shopping builder merges four source sets and then applies the shared exceptions:
 
 1. **Curlie Shopping trees** from Curlie's official bulk download.
 2. **UT1 / Université Toulouse Capitole `shopping` category**, parsed from its official category archive.
 3. **Wikidata online shops and online marketplaces** with official website/shop URLs.
 4. **`manual-blocks.txt`**, containing verified major Dutch/EU shopping services plus domains deliberately selected from local Pi-hole activity.
 
-`exceptions.txt` is applied last as **exact-hostname** removals. It currently protects critical GitHub, Google Workspace and Microsoft 365 productivity hostnames from accidental inclusion.
-
-The output is converted to lowercase ASCII hostnames (IDNs become punycode), sorted and deduplicated. Schemes, credentials, ports, paths, queries and fragments are removed. IP addresses, single-label/localhost-style names and malformed hostnames are rejected.
-
-### Shopping exact-domain policy
-
-The shopping project deliberately does not reduce arbitrary subdomains to registrable parent domains. `merchant.hosting.example` remains that exact hostname. `www` is also preserved as a hostname.
-
-Shopping exceptions are exact only: adding `example.com` to `exceptions.txt` removes `example.com`, not `www.example.com` or `shop.example.com`.
+The output is converted to lowercase ASCII hostnames (IDNs become punycode), sorted and deduplicated. Schemes, credentials, ports, paths, queries and fragments are removed. IP addresses, single-label/localhost-style names and malformed hostnames are rejected. Arbitrary hosted subdomains are preserved rather than reduced to broad parent domains.
 
 ## Curlie
 
@@ -154,7 +164,7 @@ Social/anti-bypass: `.github/workflows/update-policy-lists.yml`
 
 - weekly on Sunday at 05:17 UTC;
 - manual `workflow_dispatch`;
-- relevant manual list, exception, builder, test or workflow changes.
+- relevant manual list, shared exception, builder, test or workflow changes.
 
 Both workflows run automated tests first, build into temporary locations, publish only validated output, use only the repository-provided `GITHUB_TOKEN` with `contents: write`, prevent overlapping runs, and commit generated files only when their contents change.
 
@@ -173,7 +183,9 @@ mkdir -p /tmp/shopping-build
 python scripts/build_blocklist.py build \
   --output-dir /tmp/shopping-build \
   --previous blocklists/shopping.txt \
-  --previous-sources sources
+  --previous-sources sources \
+  --manual manual-blocks.txt \
+  --exceptions exceptions.txt
 python scripts/build_blocklist.py validate /tmp/shopping-build/shopping.txt
 ```
 
@@ -181,22 +193,23 @@ Social and anti-bypass:
 
 ```bash
 mkdir -p /tmp/policy-build
-python scripts/build_ut1_policy_lists.py build --output-dir /tmp/policy-build
+python scripts/build_ut1_policy_lists.py build \
+  --output-dir /tmp/policy-build \
+  --manual-social manual-social-media.txt \
+  --exceptions exceptions.txt
 ```
 
 ## Manual changes and privacy
 
-Review Pi-hole activity **locally**. Add only specific hostnames you deliberately select to the relevant manual or exception file.
+Review Pi-hole activity **locally**. Add only specific hostnames you deliberately select to the relevant manual file or to the shared exception file.
 
 Do **not** commit Pi-hole query logs, exports, client identifiers, browsing history, screenshots containing household activity, or bulk copies of observed DNS data.
 
 Files:
 
 - `manual-blocks.txt` — manual shopping blocks
-- `exceptions.txt` — exact shopping exceptions
 - `manual-social-media.txt` — manual social-media blocks
-- `social-exceptions.txt` — suffix-aware social exceptions
-- `anti-bypass-exceptions.txt` — suffix-aware anti-bypass exceptions
+- `exceptions.txt` — shared exact/suffix exceptions for all generated lists
 
 ## Add to Pi-hole
 
