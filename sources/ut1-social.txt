@@ -111,7 +111,6 @@ academicsingles.dk
 academysingles.com
 accel-a-date.com
 accords-franco-russes.com
-accounts.snapchat.com
 acedate.co.uk
 acelerame.com
 acitizen.net
@@ -369,7 +368,6 @@ aphroditeumm.com
 api-3cdad91c-1e0d-4a0d-bbee-9671988bf9e9.sendbird.com
 api-9fa47461-fd49-4da3-bfcf-8f921b5c5777.sendbird.com
 api.msn.com
-api.twitch.tv
 apiteamn.com
 apnacollege.in
 appart-ages.fr
@@ -667,8 +665,6 @@ big-kiss.com
 bigadda.com
 biggerlover.com
 bigmoviesgallery.com
-bigo.tv
-bigolive.tv
 bigupdating.ru
 bigupdatings.ru
 bike-fever.com
@@ -806,8 +802,6 @@ broadcaster.com
 bronypassions.com
 bruxelles-rencontres.be
 bruxellesrencontres.be
-bsky.app
-bsky.social
 buddhistpassions.com
 buddygays.com
 buddymarks.com
@@ -3670,12 +3664,10 @@ kestionnaire.com
 keumzone.com
 keywestdating.com
 khersongirls.com
-kick.com
 kidlinkz.com
 kievconnections.com
 kiffmeeting.com
 kiflove.com
-kik.com
 kikonclub.com
 killeenmatchmaker.com
 killerstartups.com
@@ -3809,8 +3801,6 @@ ledy-spi.com
 leetempire.com
 leftwingdating.co.uk
 legalpassions.com
-lemon8-app.com
-lemon8-app.eu
 lemonswan.de
 lena-llm-test.s3.us-east-1.amazonaws.com
 leparfaitgentleman.fr
@@ -4160,8 +4150,6 @@ lync.cn
 lync.com
 lynchburgdating.com
 lyon-rencontre.org
-m.facebook.com
-m.twitch.tv
 m4marry.com
 ma-bimbo.com
 ma.gnolia.com
@@ -4573,7 +4561,6 @@ mlove.ru
 mndating.com
 mobifriends.com
 mobile.itsmy.com
-mobile.twitter.com
 mobiledating.co.cc
 mobileflirting.com
 mobilematchmakers.com
@@ -4892,7 +4879,6 @@ nzdating.com
 oaklandmatchmaker.com
 oaklandmatchmakers.com
 oasisactive.com
-oauth.reddit.com
 obamadating.ru
 ocdocdocdpassions.com
 odessadating.com
@@ -4927,7 +4913,6 @@ oklute.com
 oknotify2.com
 oksingles.com
 olathesingles.com
-old.reddit.com
 olgabeck.com
 oma-sex.tv
 omahamatchmaker.com
@@ -6774,8 +6759,6 @@ theway2date.co.uk
 theyoungandtherestless.com
 thisnext.com
 threadless.com
-threads.com
-threads.net
 threema.ch
 thunderboltcity.com
 ti-tchat.net
@@ -6908,7 +6891,6 @@ tvpassions.com
 tvrepublika.pl
 tweako.com
 twikeo.com
-twitch.tv
 twitter.com
 twoo.com
 twoscompany.co.uk
@@ -7092,7 +7074,6 @@ vivito.net
 vk.com
 vk.ru
 vkontakte.ru
-vm.tiktok.com
 volosdate.com
 voltade.ai
 vooboo.ru
@@ -7140,7 +7121,6 @@ wbmsn.net
 weatherpassions.com
 web-ados.com
 web-date.co.uk
-web.snapchat.com
 web2messenger.com
 webadultdating.com
 webaffair.com
@@ -7196,6 +7176,8 @@ wethunt.com
 wettastypussy.com
 wewantfun.co.uk
 whaller.com
+whatsapp.com
+whatsapp.net
 whatsyourprice.com
 wheelchairdating.net
 whenthemusicstops.co.uk
@@ -7234,7 +7216,6 @@ wishesmsg.com
 wists.com
 with.is
 withlovefromvoronezh.com
-wizzapp.com
 wobblog.com
 wolnislowianie.pl
 women2love.com
@@ -7267,26 +7248,6 @@ wuopo.com
 wvdating.com
 ww2.acces-europe.com
 wwop-love.com
-www.bigo.tv
-www.bigolive.tv
-www.discord.com
-www.facebook.com
-www.instagram.com
-www.kick.com
-www.kik.com
-www.lemon8-app.com
-www.lemon8-app.eu
-www.messenger.com
-www.reddit.com
-www.snapchat.com
-www.threads.com
-www.threads.net
-www.tiktok.com
-www.twitch.tv
-www.twitter.com
-www.wizzapp.com
-www.x.com
-www.yubo.live
 www1.tubededentifrice.com
 www2.lovyoo.com
 www3.tubededentifrice.com
@@ -7382,7 +7343,6 @@ yourrussianlady.ck.ua
 yourtravelmates.com
 youyuan.com
 yub.com
-yubo.live
 yulove.de
 yummyanime.tv
 yunona-singles.com
