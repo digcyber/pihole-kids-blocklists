@@ -1,34 +1,49 @@
-# Exact hostname exceptions only. Add one hostname per line.
-# Critical productivity services kept out of the generated shopping blocklist.
+# Shared exceptions for every generated blocklist.
+# exact:host.example excludes only that exact hostname.
+# suffix:example.com excludes the root and every subdomain below it.
 
-# GitHub
-api.github.com
-gist.github.com
-github.com
-raw.githubusercontent.com
-www.github.com
+# GitHub - critical development services
+exact:api.github.com
+exact:gist.github.com
+exact:github.com
+exact:raw.githubusercontent.com
+exact:www.github.com
 
-# Google / Google Workspace
-accounts.google.com
-calendar.google.com
-chat.google.com
-classroom.google.com
-docs.google.com
-drive.google.com
-gmail.com
-google.com
-mail.google.com
-meet.google.com
-www.google.com
+# Google / Google Workspace - critical productivity services
+exact:accounts.google.com
+exact:calendar.google.com
+exact:chat.google.com
+exact:classroom.google.com
+exact:docs.google.com
+exact:drive.google.com
+exact:gmail.com
+exact:google.com
+exact:groups.google.com
+exact:mail.google.com
+exact:meet.google.com
+exact:sites.google.com
+exact:www.google.com
 
-# Microsoft 365
-login.microsoftonline.com
-microsoft365.com
-office.com
-onedrive.live.com
-outlook.office.com
-outlook.office365.com
-teams.cloud.microsoft
-teams.microsoft.com
-www.microsoft365.com
-www.office.com
+# Microsoft 365 - critical productivity services
+exact:login.microsoftonline.com
+exact:microsoft365.com
+exact:office.com
+exact:onedrive.live.com
+exact:outlook.office.com
+exact:outlook.office365.com
+exact:teams.cloud.microsoft
+exact:teams.microsoft.com
+exact:www.microsoft365.com
+exact:www.office.com
+
+# Household policy: keep YouTube and WhatsApp available
+suffix:whatsapp.com
+suffix:whatsapp.net
+suffix:youtu.be
+suffix:youtube.com
+
+# Household policy: NordVPN is intentionally allowed
+suffix:nordaccount.com
+suffix:nordauth.com
+suffix:nordvpn.com
+suffix:nordvpn.org
