@@ -3,7 +3,7 @@ name: Update shopping blocklist
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 4 7 * *"
+    - cron: "17 4 * * 0"
   push:
     branches: [main]
     paths:
