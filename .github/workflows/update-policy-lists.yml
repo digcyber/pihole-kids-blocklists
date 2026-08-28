@@ -1,0 +1,86 @@
+name: Update social and anti-bypass lists
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 0"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-policy-lists.yml"
+      - "scripts/build_ut1_policy_lists.py"
+      - "tests/test_ut1_policy_lists.py"
+      - "manual-social-media.txt"
+      - "social-exceptions.txt"
+      - "anti-bypass-exceptions.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ut1-policy-list-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Build into temporary directory
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="${RUNNER_TEMP}/policy-build"
+          rm -rf "$out"
+          mkdir -p "$out"
+          python scripts/build_ut1_policy_lists.py build \
+            --output-dir "$out" \
+            --manual-social manual-social-media.txt \
+            --social-exceptions social-exceptions.txt \
+            --anti-bypass-exceptions anti-bypass-exceptions.txt \
+            --previous-social blocklists/social-media.txt \
+            --previous-anti-bypass blocklists/anti-bypass.txt
+          echo "out=$out" >> "$GITHUB_OUTPUT"
+
+      - name: Write Actions summary
+        run: python scripts/build_ut1_policy_lists.py summary "${{ steps.build.outputs.out }}/policy-stats.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish validated files
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="${{ steps.build.outputs.out }}"
+          install -m 0644 "$out/ut1-social.txt" sources/ut1-social.txt
+          install -m 0644 "$out/ut1-anti-bypass.txt" sources/ut1-anti-bypass.txt
+          install -m 0644 "$out/social-media.txt" blocklists/social-media.txt
+          install -m 0644 "$out/anti-bypass.txt" blocklists/anti-bypass.txt
+
+      - name: Commit only when contents changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(sources/ut1-social.txt sources/ut1-anti-bypass.txt blocklists/social-media.txt blocklists/anti-bypass.txt)
+          if git diff --quiet -- "${files[@]}" && git status --porcelain -- "${files[@]}" | grep -qv .; then
+            echo "No generated changes to commit." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${files[@]}"
+          git commit -m "Update social and anti-bypass blocklists"
+          git push
