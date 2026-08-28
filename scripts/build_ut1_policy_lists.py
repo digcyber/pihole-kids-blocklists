@@ -17,6 +17,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
+from shared_exceptions import apply_exceptions, read_exceptions
+
 BASE_URL = "https://dsi.ut-capitole.fr/blacklists/download"
 USER_AGENT = "pihole-kids-blocklists/1.0 (https://github.com/digcyber/pihole-kids-blocklists)"
 HTTP_RETRIES = 4
@@ -90,15 +92,6 @@ def read_domains(path: Path) -> set[str]:
 def write_domains(path: Path, domains: set[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(f"{d}\n" for d in sorted(domains)), encoding="utf-8", newline="\n")
-
-
-def suffix_excluded(domain: str, roots: set[str]) -> bool:
-    return any(domain == root or domain.endswith("." + root) for root in roots)
-
-
-def apply_suffix_exceptions(domains: set[str], roots: set[str]) -> tuple[set[str], int]:
-    removed = {d for d in domains if suffix_excluded(d, roots)}
-    return domains - removed, len(removed)
 
 
 def _retry_delay(exc: Exception, attempt: int) -> float:
@@ -201,16 +194,15 @@ def build(args: argparse.Namespace) -> dict:
     out.mkdir(parents=True, exist_ok=True)
 
     social_manual = read_domains(args.manual_social)
-    social_ex = read_domains(args.social_exceptions)
-    anti_ex = read_domains(args.anti_bypass_exceptions)
+    exceptions = read_exceptions(args.exceptions, normalize_hostname, BuildError)
 
     social_parts = {cat: fetch_category(cat, minimum) for cat, minimum in SOCIAL_CATEGORIES.items()}
     anti_parts = {cat: fetch_category(cat, minimum) for cat, minimum in ANTI_BYPASS_CATEGORIES.items()}
 
     social_merged = set().union(*social_parts.values(), social_manual)
-    social_final, social_removed = apply_suffix_exceptions(social_merged, social_ex)
+    social_final, social_removed = apply_exceptions(social_merged, exceptions)
     anti_merged = set().union(*anti_parts.values())
-    anti_final, anti_removed = apply_suffix_exceptions(anti_merged, anti_ex)
+    anti_final, anti_removed = apply_exceptions(anti_merged, exceptions)
 
     validate(social_final)
     validate(anti_final)
@@ -223,6 +215,7 @@ def build(args: argparse.Namespace) -> dict:
     write_domains(out / "ut1-anti-bypass.txt", anti_merged)
 
     stats = {
+        "exceptions_configured": exceptions.configured,
         "social": {**{k: len(v) for k, v in social_parts.items()}, "manual": len(social_manual), "exceptions_applied": social_removed, "final": len(social_final)},
         "anti_bypass": {**{k: len(v) for k, v in anti_parts.items()}, "exceptions_applied": anti_removed, "final": len(anti_final)},
     }
@@ -233,6 +226,7 @@ def build(args: argparse.Namespace) -> dict:
 def print_summary(path: Path) -> None:
     s = json.loads(path.read_text(encoding="utf-8"))
     print("## UT1 household policy lists\n")
+    print(f"Shared exceptions configured: {s.get('exceptions_configured', 0):,}\n")
     print("### Social media\n")
     print("| Source | Domains |\n|---|---:|")
     for key in ("social_networks", "dating", "chat", "manual", "exceptions_applied", "final"):
@@ -249,8 +243,7 @@ def main() -> int:
     b = sub.add_parser("build")
     b.add_argument("--output-dir", type=Path, required=True)
     b.add_argument("--manual-social", type=Path, default=Path("manual-social-media.txt"))
-    b.add_argument("--social-exceptions", type=Path, default=Path("social-exceptions.txt"))
-    b.add_argument("--anti-bypass-exceptions", type=Path, default=Path("anti-bypass-exceptions.txt"))
+    b.add_argument("--exceptions", type=Path, default=Path("exceptions.txt"))
     b.add_argument("--previous-social", type=Path, default=Path("blocklists/social-media.txt"))
     b.add_argument("--previous-anti-bypass", type=Path, default=Path("blocklists/anti-bypass.txt"))
     s = sub.add_parser("summary")
