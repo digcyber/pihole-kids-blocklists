@@ -23,8 +23,9 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 CURLIE_URL = "https://curlie.org/directory-dl"
+UT1_URL = "https://dsi.ut-capitole.fr/blacklists/download/shopping.tar.gz"
 WDQS_URL = "https://query.wikidata.org/sparql"
-USER_AGENT = "pihole-shopping-blocklist/1.0 (https://github.com/digcyber/pihole-kids-blocklists)"
+USER_AGENT = "pihole-shopping-blocklist/1.1 (https://github.com/digcyber/pihole-kids-blocklists)"
 
 CURLIE_ROOTS = (
     "Shopping",
@@ -39,6 +40,8 @@ WIKIDATA_ROOT_CLASSES = ("Q4382945", "Q3390477")
 
 MIN_CURLIE_ARCHIVE_BYTES = 50_000_000
 MIN_CURLIE_DOMAINS = 10_000
+MIN_UT1_ARCHIVE_BYTES = 100_000
+MIN_UT1_DOMAINS = 10_000
 MIN_WIKIDATA_DOMAINS = 50
 MIN_MANUAL_DOMAINS = 10
 MAX_DROP_FRACTION = 0.30
@@ -54,6 +57,7 @@ class BuildError(RuntimeError):
 @dataclass
 class Stats:
     curlie_domains: int
+    ut1_domains: int
     wikidata_domains: int
     manual_domains: int
     duplicates: int
@@ -247,6 +251,63 @@ def fetch_curlie() -> tuple[set[str], dict[str, int]]:
     return domains, roots
 
 
+def parse_ut1_archive(archive_path: Path) -> set[str]:
+    try:
+        tar = tarfile.open(archive_path, mode="r:gz")
+    except (tarfile.TarError, OSError) as exc:
+        raise BuildError(f"UT1 archive is malformed: {exc}") from exc
+    domains: set[str] = set()
+    records = 0
+    invalid = 0
+    found_domains = False
+    found_urls = False
+    with tar:
+        for member in tar.getmembers():
+            if not member.isfile():
+                continue
+            basename = Path(member.name).name
+            if basename not in {"domains", "urls"}:
+                continue
+            if basename == "domains":
+                found_domains = True
+            else:
+                found_urls = True
+            fileobj = tar.extractfile(member)
+            if fileobj is None:
+                continue
+            try:
+                text = io.TextIOWrapper(fileobj, encoding="utf-8", errors="strict")
+                for line in text:
+                    value = line.strip()
+                    if not value or value.startswith("#"):
+                        continue
+                    records += 1
+                    domain = normalize_hostname(value)
+                    if domain is None:
+                        invalid += 1
+                    else:
+                        domains.add(domain)
+            except UnicodeDecodeError as exc:
+                raise BuildError(f"UT1 {basename} file is not valid UTF-8") from exc
+    if not found_domains or not found_urls:
+        raise BuildError("UT1 shopping archive lacks expected domains and urls files")
+    if records == 0:
+        raise BuildError("UT1 shopping archive contained no records")
+    if invalid > max(100, int(records * 0.10)):
+        raise BuildError(f"UT1 had suspiciously many malformed records: {invalid:,}/{records:,}")
+    return domains
+
+
+def fetch_ut1() -> set[str]:
+    with tempfile.TemporaryDirectory(prefix="ut1-") as tmp:
+        archive = Path(tmp) / "shopping.tar.gz"
+        download_with_retries(UT1_URL, archive, min_bytes=MIN_UT1_ARCHIVE_BYTES)
+        domains = parse_ut1_archive(archive)
+    if len(domains) < MIN_UT1_DOMAINS:
+        raise BuildError(f"UT1 source suspiciously small: {len(domains):,} domains; minimum is {MIN_UT1_DOMAINS:,}")
+    return domains
+
+
 def wdqs_json(query: str) -> dict:
     url = WDQS_URL + "?" + urlencode({"query": query, "format": "json"})
     last_error: Exception | None = None
@@ -357,14 +418,17 @@ def build(output_dir: Path, previous_file: Path, previous_sources: Path, manual_
     if len(manual) < MIN_MANUAL_DOMAINS:
         raise BuildError(f"manual source has only {len(manual)} domains; minimum is {MIN_MANUAL_DOMAINS}")
     curlie, root_matches = fetch_curlie()
+    ut1 = fetch_ut1()
     wikidata = fetch_wikidata()
     previous_curlie = read_domain_file(previous_sources / "curlie.txt")
+    previous_ut1 = read_domain_file(previous_sources / "ut1.txt")
     previous_wikidata = read_domain_file(previous_sources / "wikidata.txt")
     previous_final = read_domain_file(previous_file)
     guard_drop("Curlie", previous_curlie, curlie)
+    guard_drop("UT1", previous_ut1, ut1)
     guard_drop("Wikidata", previous_wikidata, wikidata)
-    source_total = len(curlie) + len(wikidata) + len(manual)
-    merged = curlie | wikidata | manual
+    source_total = len(curlie) + len(ut1) + len(wikidata) + len(manual)
+    merged = curlie | ut1 | wikidata | manual
     duplicates = source_total - len(merged)
     applied_exceptions = merged & exceptions
     final = merged - exceptions
@@ -374,12 +438,13 @@ def build(output_dir: Path, previous_file: Path, previous_sources: Path, manual_
     ordered_final = sorted(final)
     validate_domains(ordered_final)
     write_domains(output_dir / "curlie.txt", curlie)
+    write_domains(output_dir / "ut1.txt", ut1)
     write_domains(output_dir / "wikidata.txt", wikidata)
     write_domains(output_dir / "shopping.txt", ordered_final)
     previous_count = len(previous_final)
     difference = len(final) - previous_count
     difference_percent = None if previous_count == 0 else (difference / previous_count) * 100.0
-    stats = Stats(len(curlie), len(wikidata), len(manual), duplicates, len(exceptions), len(applied_exceptions), len(final), previous_count, difference, difference_percent)
+    stats = Stats(len(curlie), len(ut1), len(wikidata), len(manual), duplicates, len(exceptions), len(applied_exceptions), len(final), previous_count, difference, difference_percent)
     metadata = asdict(stats)
     metadata["curlie_category_matches"] = root_matches
     (output_dir / "stats.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -395,6 +460,7 @@ def print_summary(stats_path: Path) -> None:
     print("## Shopping blocklist update\n")
     print("| Metric | Count |\n|---|---:|")
     print(f"| Curlie domains | {data['curlie_domains']:,} |")
+    print(f"| UT1 domains | {data['ut1_domains']:,} |")
     print(f"| Wikidata domains | {data['wikidata_domains']:,} |")
     print(f"| Manual domains | {data['manual_domains']:,} |")
     print(f"| Duplicates removed | {data['duplicates']:,} |")
