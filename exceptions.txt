@@ -1,0 +1,2 @@
+# Exact hostname exceptions only. Add one hostname per line.
+# Example (disabled): school-supplies.example
