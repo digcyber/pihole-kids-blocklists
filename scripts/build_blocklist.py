@@ -22,6 +22,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
+from shared_exceptions import apply_exceptions, read_exceptions
+
 CURLIE_URL = "https://curlie.org/directory-dl"
 UT1_URL = "https://dsi.ut-capitole.fr/blacklists/download/shopping.tar.gz"
 WDQS_URL = "https://query.wikidata.org/sparql"
@@ -414,7 +416,7 @@ def validate_file(path: Path) -> int:
 def build(output_dir: Path, previous_file: Path, previous_sources: Path, manual_file: Path, exceptions_file: Path) -> Stats:
     output_dir.mkdir(parents=True, exist_ok=True)
     manual = read_domain_file(manual_file, strict=True)
-    exceptions = read_domain_file(exceptions_file, strict=True)
+    exceptions = read_exceptions(exceptions_file, normalize_hostname, BuildError)
     if len(manual) < MIN_MANUAL_DOMAINS:
         raise BuildError(f"manual source has only {len(manual)} domains; minimum is {MIN_MANUAL_DOMAINS}")
     curlie, root_matches = fetch_curlie()
@@ -430,8 +432,7 @@ def build(output_dir: Path, previous_file: Path, previous_sources: Path, manual_
     source_total = len(curlie) + len(ut1) + len(wikidata) + len(manual)
     merged = curlie | ut1 | wikidata | manual
     duplicates = source_total - len(merged)
-    applied_exceptions = merged & exceptions
-    final = merged - exceptions
+    final, exceptions_applied = apply_exceptions(merged, exceptions)
     guard_drop("final blocklist", previous_final, final)
     if len(final) < MIN_CURLIE_DOMAINS:
         raise BuildError(f"final blocklist suspiciously small: {len(final):,}")
@@ -444,7 +445,7 @@ def build(output_dir: Path, previous_file: Path, previous_sources: Path, manual_
     previous_count = len(previous_final)
     difference = len(final) - previous_count
     difference_percent = None if previous_count == 0 else (difference / previous_count) * 100.0
-    stats = Stats(len(curlie), len(ut1), len(wikidata), len(manual), duplicates, len(exceptions), len(applied_exceptions), len(final), previous_count, difference, difference_percent)
+    stats = Stats(len(curlie), len(ut1), len(wikidata), len(manual), duplicates, exceptions.configured, exceptions_applied, len(final), previous_count, difference, difference_percent)
     metadata = asdict(stats)
     metadata["curlie_category_matches"] = root_matches
     (output_dir / "stats.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
