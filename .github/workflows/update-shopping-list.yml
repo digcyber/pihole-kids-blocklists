@@ -1,0 +1,82 @@
+name: Update shopping blocklist
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 7 * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-shopping-list.yml"
+      - "scripts/**"
+      - "tests/**"
+      - "manual-blocks.txt"
+      - "exceptions.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shopping-blocklist-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Build into temporary directory
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="${RUNNER_TEMP}/shopping-build"
+          rm -rf "$out"
+          mkdir -p "$out"
+          python scripts/build_blocklist.py build \
+            --output-dir "$out" \
+            --previous blocklists/shopping.txt \
+            --previous-sources sources \
+            --manual manual-blocks.txt \
+            --exceptions exceptions.txt
+          python scripts/build_blocklist.py validate "$out/shopping.txt"
+          echo "out=$out" >> "$GITHUB_OUTPUT"
+
+      - name: Write Actions summary
+        run: python scripts/build_blocklist.py summary "${{ steps.build.outputs.out }}/stats.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish validated files
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="${{ steps.build.outputs.out }}"
+          install -m 0644 "$out/curlie.txt" sources/curlie.txt
+          install -m 0644 "$out/wikidata.txt" sources/wikidata.txt
+          install -m 0644 "$out/shopping.txt" blocklists/shopping.txt
+
+      - name: Commit only when contents changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- sources/curlie.txt sources/wikidata.txt blocklists/shopping.txt; then
+            echo "No generated changes to commit." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sources/curlie.txt sources/wikidata.txt blocklists/shopping.txt
+          git commit -m "Update shopping blocklist"
+          git push
