@@ -53,12 +53,22 @@ class UT1CategoryParserTests(unittest.TestCase):
                 {"chat.example", "www.chat.example", "rooms.example", "talk.example"},
             )
 
-    def test_requires_domains_and_urls(self):
+    def test_accepts_domains_only_category(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp) / "vpn.tar.gz"
+            with tarfile.open(archive, "w:gz") as tf:
+                payload = b"vpn.example\nnode.vpn.example\n"
+                info = tarfile.TarInfo("vpn/domains")
+                info.size = len(payload)
+                tf.addfile(info, io.BytesIO(payload))
+            self.assertEqual(parse_ut1_category_archive(archive, "vpn"), {"vpn.example", "node.vpn.example"})
+
+    def test_rejects_archive_without_category_data(self):
         with tempfile.TemporaryDirectory() as tmp:
             archive = Path(tmp) / "chat.tar.gz"
             with tarfile.open(archive, "w:gz") as tf:
-                payload = b"chat.example\n"
-                info = tarfile.TarInfo("chat/domains")
+                payload = b"metadata\n"
+                info = tarfile.TarInfo("chat/README")
                 info.size = len(payload)
                 tf.addfile(info, io.BytesIO(payload))
             with self.assertRaises(BuildError):
