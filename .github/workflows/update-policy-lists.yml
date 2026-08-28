@@ -9,10 +9,11 @@ on:
     paths:
       - ".github/workflows/update-policy-lists.yml"
       - "scripts/build_ut1_policy_lists.py"
+      - "scripts/shared_exceptions.py"
+      - "shared_exceptions.py"
       - "tests/test_ut1_policy_lists.py"
       - "manual-social-media.txt"
-      - "social-exceptions.txt"
-      - "anti-bypass-exceptions.txt"
+      - "exceptions.txt"
 
 permissions:
   contents: write
@@ -51,8 +52,7 @@ jobs:
           python scripts/build_ut1_policy_lists.py build \
             --output-dir "$out" \
             --manual-social manual-social-media.txt \
-            --social-exceptions social-exceptions.txt \
-            --anti-bypass-exceptions anti-bypass-exceptions.txt \
+            --exceptions exceptions.txt \
             --previous-social blocklists/social-media.txt \
             --previous-anti-bypass blocklists/anti-bypass.txt
           echo "out=$out" >> "$GITHUB_OUTPUT"
