@@ -159,8 +159,8 @@ def parse_ut1_category_archive(path: Path, category: str) -> set[str]:
                         invalid += 1
             except UnicodeDecodeError as exc:
                 raise BuildError(f"UT1 {category}/{basename} is not valid UTF-8") from exc
-    if not all(seen.values()):
-        raise BuildError(f"UT1 {category} archive lacks expected domains/urls files")
+    if not any(seen.values()):
+        raise BuildError(f"UT1 {category} archive has neither domains nor urls data")
     if records == 0:
         raise BuildError(f"UT1 {category} archive contains no records")
     if invalid > max(100, int(records * 0.10)):
