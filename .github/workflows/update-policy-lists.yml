@@ -75,7 +75,7 @@ jobs:
         run: |
           set -euo pipefail
           files=(sources/ut1-social.txt sources/ut1-anti-bypass.txt blocklists/social-media.txt blocklists/anti-bypass.txt)
-          if git diff --quiet -- "${files[@]}" && git status --porcelain -- "${files[@]}" | grep -qv .; then
+          if git diff --quiet -- "${files[@]}" && [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
             echo "No generated changes to commit." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
