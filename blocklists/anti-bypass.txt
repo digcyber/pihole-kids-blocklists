@@ -45658,7 +45658,6 @@ groupjunctions.tk
 groupmore.tk
 groupons.tk
 grouproxfy.tk
-groups.google.com
 groups.yahoo.com
 groupsafe.info
 groupslinkbypass.tk
@@ -91248,7 +91247,6 @@ siteproxyus.com
 siterance.info
 siterisk.info
 siterouter.info
-sites.google.com
 sites5u5proxy.tk
 sites867proxy.tk
 sitesareblocked.info
