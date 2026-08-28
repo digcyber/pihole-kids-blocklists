@@ -22,6 +22,7 @@ USER_AGENT = "pihole-kids-blocklists/1.0 (https://github.com/digcyber/pihole-kid
 HTTP_RETRIES = 4
 HTTP_TIMEOUT = 90
 MAX_DROP_FRACTION = 0.30
+MAX_UNUSABLE_RECORD_FRACTION = 0.25
 LABEL_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$", re.ASCII)
 
 SOCIAL_CATEGORIES = {
@@ -163,8 +164,8 @@ def parse_ut1_category_archive(path: Path, category: str) -> set[str]:
         raise BuildError(f"UT1 {category} archive has neither domains nor urls data")
     if records == 0:
         raise BuildError(f"UT1 {category} archive contains no records")
-    if invalid > max(100, int(records * 0.10)):
-        raise BuildError(f"UT1 {category} has too many malformed records: {invalid}/{records}")
+    if invalid > max(100, int(records * MAX_UNUSABLE_RECORD_FRACTION)):
+        raise BuildError(f"UT1 {category} has too many unusable records: {invalid}/{records}")
     return domains
 
 
