@@ -13,6 +13,7 @@ from scripts.build_blocklist import (
     parse_ut1_archive,
     validate_domains,
 )
+from scripts.shared_exceptions import Exceptions, apply_exceptions
 
 
 class NormalizeTests(unittest.TestCase):
@@ -47,9 +48,12 @@ class MergeTests(unittest.TestCase):
     def test_deduplication(self):
         self.assertEqual(parse_domain_lines(["EXAMPLE.com", "example.com", "www.example.com"]), {"example.com", "www.example.com"})
 
-    def test_exact_exception_semantics(self):
-        merged = {"example.com", "www.example.com", "shop.example.com"}
-        self.assertEqual(merged - {"example.com"}, {"www.example.com", "shop.example.com"})
+    def test_shared_exact_and_suffix_exceptions(self):
+        merged = {"google.com", "dns.google.com", "youtube.com", "www.youtube.com"}
+        rules = Exceptions(frozenset({"google.com"}), frozenset({"youtube.com"}))
+        kept, removed = apply_exceptions(merged, rules)
+        self.assertEqual(kept, {"dns.google.com"})
+        self.assertEqual(removed, 3)
 
     def test_sorted_unique_validation(self):
         self.assertEqual(validate_domains(["a.example", "b.example"]), ["a.example", "b.example"])
