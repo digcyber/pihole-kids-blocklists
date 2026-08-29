@@ -36,7 +36,10 @@ exact:teams.microsoft.com
 exact:www.microsoft365.com
 exact:www.office.com
 
-# Household policy: keep YouTube and WhatsApp available
+# Household policy: keep YouTube, WhatsApp and Spotify available
+suffix:scdn.co
+suffix:spotify.com
+suffix:spotifycdn.com
 suffix:whatsapp.com
 suffix:whatsapp.net
 suffix:youtu.be
