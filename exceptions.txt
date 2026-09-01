@@ -36,6 +36,12 @@ exact:teams.microsoft.com
 exact:www.microsoft365.com
 exact:www.office.com
 
+# Household policy: keep selected retailers available
+suffix:gamma.nl
+suffix:hornbach.com
+suffix:hornbach.nl
+suffix:ikea.com
+
 # Household policy: keep YouTube, WhatsApp and Spotify available
 suffix:scdn.co
 suffix:spotify.com
