@@ -23,6 +23,7 @@ amapola-living.com
 amazon.com
 amazon.in
 amenzia.com
+american-perfumer.com
 amiestreet.com
 andysbillard.ch
 animalsss.com
@@ -78,6 +79,7 @@ blog.maremagnum.com
 bloomshell.co
 boabe.ro
 boame.co
+boardakshop.ru
 bokon.se
 boly.ca
 bookcafe.com.my
@@ -85,6 +87,7 @@ bookmybuffet.com
 bookshop.org
 bookwithbuddy.com
 boomkat.com
+booxir.com
 brandshop.gaz.ru
 brandsseekers.com
 brasiarte.com.br
@@ -132,7 +135,6 @@ decoramic.ir
 deluxesaffraan.nl
 denpa.pub
 designtab.tn
-desimachines.com
 destinationgifts.au
 dewatacigars.com
 dhihvaa.mv
@@ -156,6 +158,7 @@ ecoyaan.com
 edify.club
 edigourmetspice.com
 electrocd.com
+elhandel.pl
 ellecouture.shop
 emanga.com
 en.aptoide.com
@@ -176,6 +179,7 @@ evaly.com.bd
 evparts4x4.com
 evquotes.ca
 ewanna.es
+ezgame.com.br
 fab.com
 famevibe.io
 fanzymarket.com
@@ -382,6 +386,7 @@ partsavatar.ca
 pawprint.company
 peptex.shop
 peptuvia.com
+perfumedock.com
 perfumem.com
 perfumy.pl
 perfun.pl
@@ -518,6 +523,7 @@ traktrain.com
 tresta.xyz
 triverna.pl
 tryjevi.com
+tummyandmummy.com
 tvoe.ru
 tyres.co.uk
 uciekaj.pl
@@ -754,6 +760,7 @@ www.garfieldeats.com
 www.getapp.com
 www.getapp.fr
 www.getjar.com
+www.getjoyla.com
 www.giddypets.co.uk
 www.giffywalls.com
 www.gigheaven.com
@@ -785,6 +792,7 @@ www.happysocks.com.au
 www.harempants.com
 www.hatch-green-chile.com
 www.hausgem.com
+www.heatdryclothing.com
 www.hellomolly.com
 www.hizmetgo.app
 www.holz-richter.de
@@ -968,6 +976,7 @@ www.obaflow.com
 www.ocado.com
 www.oddbins.com
 www.oimoya-shop.jp
+www.olanderearthworks.com
 www.oliunid.com
 www.oliunid.de
 www.oliunid.es
@@ -1147,6 +1156,7 @@ www.trenyrkarna.cz
 www.trussardi.com
 www.trustkar.pk
 www.tuinplantenbezorgd.nl
+www.tummyandmummy.com
 www.turkeyevent.com
 www.tutti.ch
 www.tweedehands.nl
@@ -1200,6 +1210,7 @@ www.zennioptical.com
 www.zinzane.com.br
 www.zoll-auktion.de
 www.zulily.com
+www.zwembadgigant.nl
 xn--e1aoqg.xn--j1amh
 xn--lwenwurzel-ecb.de
 yasai-do.com
@@ -1211,3 +1222,4 @@ zari360.in
 zomra.io
 zonaven.com
 zpzshoes.com.br
+zumii.ro
