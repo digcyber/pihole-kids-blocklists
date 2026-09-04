@@ -52,6 +52,7 @@ suffix:youtu.be
 suffix:youtube.com
 
 # Household policy: NordVPN is intentionally allowed
+exact:napps-1.com
 suffix:nordaccount.com
 suffix:nordauth.com
 suffix:nordvpn.com
