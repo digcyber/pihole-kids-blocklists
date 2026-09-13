@@ -52,6 +52,8 @@ artistsnclients.com
 audio-everywhere.com
 aurent.online
 autoza.ie
+avatok.ai
+averymae.com
 babyandmom.ma
 badassmotogear.com
 bahnshop.de
@@ -100,6 +102,7 @@ buybritain.com
 buycycle.com
 cafebazaar.ir
 can-bar.pl
+caramia.ro
 cardsrelay.com
 carmarket.ch
 carpulse.it
@@ -110,6 +113,7 @@ casedrops.com
 casekaro.com
 cdbaby.com
 cdon.com
+ceramicconnection.com
 cgtrader.com
 channelstore.roku.com
 chasehaul.com
@@ -123,6 +127,7 @@ cottonon.com
 coupony.it
 covertinstruments.com
 craftpix.net
+cranitaz.pro
 cristalbohemia.ro
 croppo.ro
 crowcrowcrow.com
@@ -130,8 +135,10 @@ cults3d.com
 cydia.saurik.com
 czec.pl
 damjitech.com
+darkfemme.com
 dealersden.org
 decoramic.ir
+dekoprint.pl
 deluxesaffraan.nl
 denpa.pub
 designtab.tn
@@ -235,6 +242,7 @@ haraj.com
 hbox.jp
 hdtracks.com
 heartandsoulwhisperer.com.au
+hektaur.eu
 hellofapartner.com
 hemali.no
 henoticdiagnostics.com
@@ -280,6 +288,7 @@ kipukauppa.com
 kitapoku.eu
 kite-shop.ch
 kitobz.ru
+klipche.com
 klippik.com
 kodansha.us
 kopierpapier.de
@@ -297,11 +306,11 @@ lemurrr.ru
 lendeo.cz
 lensoptikal.com
 leonardo.ru
+lesserresdejardin.com
 letgo.com
 letmalta.com
 libro.fm
 librosfugitivos.es
-likya.de
 lilbabyweed.com
 livuma.com
 localbitcoins.com
@@ -324,6 +333,7 @@ marktplatz-apo.com
 marktplatz.bild.de
 marpple.shop
 masori.de
+meilleur-nain-de-jardin.com
 members.learnjazzstandards.com
 mercari.jp
 merch.google
@@ -369,6 +379,7 @@ obato.eu
 obminyayka.com
 offerup.com
 officialguides.com
+offrendo.ch
 okazii.ro
 onside.io
 openbazaar.org
@@ -429,6 +440,7 @@ remerciementdeces.fr
 renoolab.fr
 repnat.cz
 rezerva.tl
+riyasewana.com
 ruralaqui.com
 sakla.app
 satisfyship.com
@@ -444,6 +456,7 @@ shop.by
 shop.condor.com
 shop.craphound.com
 shop.googlemerchandisestore.com
+shop.hawaiispecialties.com
 shop.migros.ch
 shop.njpw.co.jp
 shop.njpw1972.com
@@ -576,6 +589,7 @@ wezprawnika.pl
 winedrops.com
 winetime.ua
 wiseplix.com
+worshiphousemedia.com
 wowshop.jp
 www.11st.co.kr
 www.24s.com
@@ -590,6 +604,7 @@ www.amazon.com
 www.amazon.fr
 www.amazon.sg
 www.andersons.com
+www.annieandoak.com
 www.ansichtskartenversand.com
 www.apewineboxes.com
 www.apodiscounter.de
@@ -603,6 +618,7 @@ www.auchan.ru
 www.auction.co.kr
 www.aucto.com
 www.audible.com
+www.automatictrap.com
 www.autoscout24.ch
 www.avito.ru
 www.b-ownd.com
@@ -639,6 +655,7 @@ www.bikester.ch
 www.bikester.fr
 www.bikester.nl
 www.bikinikloset.com
+www.biko24.com
 www.bimoki.com
 www.blibli.com
 www.blocket.se
@@ -662,12 +679,14 @@ www.buscalibre.com
 www.cabinetno40.com
 www.cadeaux.com
 www.cantata.ru
+www.car-byebuy.com
 www.carparts.com
 www.carpulse.al
 www.casando.de
 www.caseking.de
 www.cdiscount.com
 www.ceneje.si
+www.ceroresiduo.com
 www.ceuediciones.es
 www.chaldal.com
 www.check24.de
@@ -770,6 +789,7 @@ www.getjoyla.com
 www.giddypets.co.uk
 www.giffywalls.com
 www.gigheaven.com
+www.girisimatolyesi.tr
 www.gizmogo.com
 www.glamaya.com
 www.glasses2you.co.uk
@@ -777,6 +797,7 @@ www.glassesusa.com
 www.globalbuyersonline.com
 www.go2marine.com
 www.goat.com
+www.gobbo.nl
 www.googlemerchandisestore.com
 www.gotrendier.com
 www.graduationauthority.com
@@ -906,6 +927,7 @@ www.loveknitting.de
 www.low-ya.com
 www.luckyscent.com
 www.luisaviaroma.com
+www.luluandgeorgia.com
 www.lulus.com
 www.lureset.com
 www.machineseeker.com
@@ -1069,6 +1091,7 @@ www.secondechance.org
 www.seecountries.com
 www.seiko-clocks.co.uk
 www.seikoboutique.co.uk
+www.selectedwallpapers.com
 www.sendo.vn
 www.service.com.au
 www.sfd.pl
@@ -1134,6 +1157,7 @@ www.tickpick.com
 www.tiktokshop.com
 www.timreading.it
 www.tindie.com
+www.tiskarik.cz
 www.todaytix.com
 www.tokopedia.com
 www.tori.fi
@@ -1161,7 +1185,6 @@ www.trenyrkarna.cz
 www.trussardi.com
 www.trustkar.pk
 www.tuinplantenbezorgd.nl
-www.tummyandmummy.com
 www.turkeyevent.com
 www.tutti.ch
 www.tweedehands.nl
