@@ -95,8 +95,8 @@ brandsseekers.com
 brasiarte.com.br
 bricklink.com
 bridgeo.fr
+broeroutdoor.nl
 brokersdigital.com
-buitenkeukendeal.nl
 business.amazon.com
 buybritain.com
 buycycle.com
@@ -113,7 +113,6 @@ casedrops.com
 casekaro.com
 cdbaby.com
 cdon.com
-ceramicconnection.com
 cgtrader.com
 channelstore.roku.com
 chasehaul.com
@@ -123,6 +122,7 @@ clicktrans.pl
 collaborator.pro
 commerciovirtuoso.it
 commonplacebooksokc.com
+concyra.com
 cottonon.com
 coupony.it
 covertinstruments.com
@@ -174,6 +174,7 @@ en.uhomes.com
 encuentra24.com
 entek.ai
 epardoseli.ro
+es.aptoide.com
 es.cdbaby.com
 es.introgreen.eu
 es.shopping.rakuten.com
@@ -263,10 +264,14 @@ introgreen.de
 introgreen.eu
 introgreen.nl
 investhome.au
+ioutlet.es
+ioutlet.fr
+ioutlet.it
 ioutlet.pt
 irasshai.co
 irosk.com.au
 isurve.ge
+it.aptoide.com
 italianmodab2b.com
 j-novel.club
 jaango.co.il
@@ -296,9 +301,12 @@ kpophouse.eu
 kratomwave.com
 ksaplate.com
 kupika.by
+kuralis.ch
+kuralis.pt
 kycolonelsstore.com
 laboostudio.com
 laestanteriaoculta.es
+laexadigital.com
 lamoda.ru
 laptop-keys.com
 legiit.com
@@ -317,6 +325,7 @@ localbitcoins.com
 localsquare.co.za
 localsquare.net
 lookeronline.com
+lortolanodelvintage.com
 loverepublic.ru
 luckd.in
 lumdo.de
@@ -381,6 +390,7 @@ offerup.com
 officialguides.com
 offrendo.ch
 okazii.ro
+omega-moonswatch.fr
 onside.io
 openbazaar.org
 opensea.io
@@ -418,12 +428,14 @@ pody.io
 pop-stamp.fr
 popsiefishco.com
 portally.com
+profik.app
 prolata.hu
 prolata.si
 propstore.com
 proxy.equipment
 proxygate.ai
 pspeptides.com
+pt.aptoide.com
 purelygoods.nl
 radiators.in.ua
 rahamco.com
@@ -443,6 +455,7 @@ rezerva.tl
 riyasewana.com
 ruralaqui.com
 sakla.app
+saleshore.com
 satisfyship.com
 sbermarket.ru
 scentix.eu
@@ -455,6 +468,7 @@ shipstrading.com
 shop.by
 shop.condor.com
 shop.craphound.com
+shop.germanenergies.com
 shop.googlemerchandisestore.com
 shop.hawaiispecialties.com
 shop.migros.ch
@@ -482,8 +496,11 @@ snapcraft.io
 so-avant-garde.com
 society6.com
 softkey.info
+softwareeule.de
+softwaresolution24.com
 songtailor.co
 sotto.co.uk
+soundbooked.com
 sourceshop.fr
 spacer.com.au
 spareautomation.com
@@ -507,6 +524,7 @@ store.rockstargames.com
 store.wikimedia.org
 store.yandex.ru
 suneasy.app
+superprof.de
 suplenet.com
 swapster.co.uk
 swissmarketplace.group
@@ -516,6 +534,7 @@ szshop.sueddeutsche.de
 tagpep.com
 takelessons.com
 tamu.ca
+tantis.pl
 taxsalesportal.ca
 technogroup.bg
 tegulastone.com
@@ -526,6 +545,7 @@ theaiagentmarketplace.com
 thebourboncentral.com
 thecareroyal.com
 themarket.com
+theplacetodeal.fr
 theposudka.com.ua
 thetravelerart.com
 thetwobarbers.com
@@ -575,6 +595,7 @@ vinylised.com
 virfq.com
 vmcosmetics.co.il
 volleybird.shop
+vollversion-software.de
 voton.cz
 wackelwelt.de
 wallmagicai.de
@@ -679,6 +700,10 @@ www.buscalibre.com
 www.cabinetno40.com
 www.cadeaux.com
 www.cantata.ru
+www.capterra.com
+www.capterra.com.de
+www.capterra.es
+www.capterra.fr
 www.car-byebuy.com
 www.carparts.com
 www.carpulse.al
@@ -938,6 +963,7 @@ www.madeiramadeira.com.br
 www.magdeburgticket.de
 www.magicmadhouse.co.uk
 www.mahoganybooks.com
+www.maison.work
 www.maison123.com
 www.makeship.com
 www.malianta.com
@@ -1046,6 +1072,7 @@ www.peerspace.com
 www.pepperfry.com
 www.peptyds.com
 www.perfectlybasics.com
+www.perligio.com
 www.pharmacy2u.co.uk
 www.picture-alliance.com
 www.pixelempire.com
@@ -1072,8 +1099,8 @@ www.readme.fi
 www.realself.com
 www.redbubble.com
 www.redcoon.de
-www.remember.de
 www.renderhub.com
+www.resee.com
 www.retronadruk.pl
 www.rhapsody.com
 www.rhymeuniversity.com
@@ -1113,7 +1140,6 @@ www.solarconnect.solar
 www.somon.tj
 www.sony.jp
 www.soundohm.com
-www.spalierbaumspezialist.de
 www.sparkfun.com
 www.speurders.nl
 www.spotahome.com
