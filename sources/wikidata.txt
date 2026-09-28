@@ -226,7 +226,6 @@ ganban-ticket.ocnk.net
 ganban.net
 gensdeconfiance.fr
 gentil.ocnk.net
-getoperators.co
 geyin.az
 giftstoprint.com
 giggster.com
@@ -327,6 +326,8 @@ libro.fm
 librosfugitivos.es
 lifestylepop.com
 lilbabyweed.com
+lipsell.com
+lipsell.lt
 livuma.com
 localbitcoins.com
 localsquare.co.za
@@ -897,7 +898,6 @@ www.jimms.fi
 www.jiomart.com
 www.jollychic.com
 www.joom.com
-www.juganoobox.com
 www.juno.co.uk
 www.justbob.de
 www.justbob.es
@@ -1242,6 +1242,7 @@ www.veanveu.com
 www.vecteezy.com
 www.veloragoods.com
 www.vento-star.de
+www.verhuurwinkel.nl
 www.verlagambirnbach.de
 www.verschil.be
 www.vidaxl.de
